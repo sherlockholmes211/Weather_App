@@ -8,7 +8,7 @@ const Content = (props) => {
     var icon;
     var temp;
     var main_d
-    if(props.valid){
+    if(props.valid && props.code != 404){
         weather = props.weather["description"]
         icon = props.weather["icon"]
         temp = props.main["temp"] -273.15;
@@ -23,7 +23,7 @@ const Content = (props) => {
     return (
         <div className="Content-control">
 
-            {props.valid&&
+            {props.valid&&props.code !== 404&&
             <div class="appwrap">
 
             <main> 
@@ -43,6 +43,7 @@ const Content = (props) => {
         </div>
             
             }
+        {props.code === 404&&<div class="city">Not Found</div>}
             
             {/* {props.weather["description"]} */}
             

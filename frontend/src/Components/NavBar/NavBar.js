@@ -17,6 +17,7 @@ const NavBar = () => {
     const [name, setname] = useState('')
     const [wind, setwind] = useState('')
     const [weather, setweather] = useState('')
+    const [code, setcode] = useState('')
     const onChange = (e)=>{
         setSearchQuery(e.target.value);
         console.log(searchQuery)
@@ -27,7 +28,7 @@ const NavBar = () => {
       setSelectedDate(date);
     };
 
-
+    
 
     const submitHandler = async (e) =>{
         e.preventDefault();
@@ -45,6 +46,7 @@ const NavBar = () => {
             setweather(data.weather[0]);
             setwind(data.wind);
             setname(data.name);
+            setcode(data.code);
             // resdat.changeRes(data)
             
             //setoriginaldata(data.bloodbanks);
@@ -99,7 +101,7 @@ const NavBar = () => {
 
             </form>
         </Nav>
-        <Content res={resdata} name={name} weather={weather} wind={wind} main={main} valid={valid}/>
+        <Content res={resdata} code={code} name={name} weather={weather} wind={wind} main={main} valid={valid}/>
         </React.Fragment>
     )
 }

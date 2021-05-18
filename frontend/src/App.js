@@ -5,6 +5,8 @@ import NavBar from './Components/NavBar/NavBar';
 
 import {AppContext} from './Context/ResponseContext'
 import Content from './Components/Content/Content';
+import Counter from './Components/Counter/Counter';
+
 
 function App() {
   const [res, setres] = useState('');
@@ -24,6 +26,7 @@ function App() {
     <Router>
       <NavBar/>
       <Content/>
+
     </Router>
     </AppContext.Provider>
   );
