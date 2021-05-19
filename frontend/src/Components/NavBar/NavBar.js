@@ -1,9 +1,5 @@
 import React,{useEffect,useState,useContext} from 'react'
-// import { Searchbar } from 'react-native-paper';
 import {Nav,NavBtn,NavBtnlink,NavLink,NavMenu} from './NavElements'
-
-// import SearchIcon from '@material-ui/icons/Search';
-// import InputBase from '@material-ui/core/InputBase';
 import Search from '../Search/Search';
 import DatePicker from '../DatePicker/DatePicker';
 import {AppContext} from '../../Context/ResponseContext';
@@ -12,18 +8,19 @@ import Content from '../Content/Content'
 const NavBar = () => {
     const resdat = useContext(AppContext);
     const [valid, setvalid] = useState(false);
-    const [searchQuery, setSearchQuery] = React.useState();
-    const [main, setmain] = useState('')
-    const [name, setname] = useState('')
-    const [wind, setwind] = useState('')
-    const [weather, setweather] = useState('')
-    const [code, setcode] = useState('')
+    const [searchQuery, setSearchQuery] = React.useState('');
+
     const onChange = (e)=>{
         setSearchQuery(e.target.value);
         console.log(searchQuery)
     }
+
+
     const [selectedDate, setSelectedDate] = React.useState(new Date());
-    const [resdata, setresdata] = useState('')
+    const [resdata, setresdata] = useState({
+        "cod": "404",
+        "message": "city not found"
+    })
     const handleDateChange = (date) => {
       setSelectedDate(date);
     };
@@ -32,6 +29,7 @@ const NavBar = () => {
 
     const submitHandler = async (e) =>{
         e.preventDefault();
+        
         console.log("submit")
         const fetchdata = async () =>{
         try{
@@ -42,32 +40,22 @@ const NavBar = () => {
     
             const data = await responseData.json();
             setresdata(data);
-            setmain(data.main);
-            setweather(data.weather[0]);
-            setwind(data.wind);
-            setname(data.name);
-            setcode(data.code);
-            // resdat.changeRes(data)
-            
-            //setoriginaldata(data.bloodbanks);
+
           } catch (err){
             console.log(err);
           }
         }
         fetchdata();
-        setvalid(true)
+        if(searchQuery === ''){
+            console.log("IN valid false")
+            setvalid(false)
+        }
+        else{
+            setvalid(true)
+        }
+        
         console.log(resdat.res)
     }
-
-    
-    // const submitHandler = async (e) =>{
-    //     e.preventDefault();
-    //     console.log("Funck yaa")
-    //     setresdata("Funck yaa")
-    // }
-    
-
-    
 
     useEffect(() => {
         console.log(resdata);
@@ -98,12 +86,13 @@ const NavBar = () => {
                         <NavBtnlink type="submit" >Search</NavBtnlink>
                     </NavBtn>
                 </NavMenu>
-
+                
             </form>
         </Nav>
-        <Content res={resdata} code={code} name={name} weather={weather} wind={wind} main={main} valid={valid}/>
+        <Content res={resdata} valid={valid}/>
         </React.Fragment>
     )
 }
+
 
 export default NavBar;

@@ -5,7 +5,7 @@ import NavBar from './Components/NavBar/NavBar';
 
 import {AppContext} from './Context/ResponseContext'
 import Content from './Components/Content/Content';
-import Counter from './Components/Counter/Counter';
+
 
 
 function App() {
